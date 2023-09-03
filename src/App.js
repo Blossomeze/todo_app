@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './App.css';
 import { Button, FormControl, Input, InputLabel } from '@mui/material';
+import Card from './Card';
+
 
 function App() {
   const [todos, setTodos] = useState(['Write Code','Buy a book','Play the guitar','Rent a house']);
@@ -14,8 +16,8 @@ function App() {
     console.log(todos)
   }
   return (
-    <div className="App">
-      <div>
+    <div className="app">
+      <div className='form'>
       <FormControl>
         <InputLabel>Add Task</InputLabel>
         <Input value={input} onChange={event => setInput(event.target.value)}  />
@@ -25,7 +27,7 @@ function App() {
       <div>
         <ul>
           {todos.map(todo => (
-            <li>{todo}</li>
+            <Card text={todo} />
           ))}
         </ul>  
       </div>   
