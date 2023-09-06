@@ -1,17 +1,30 @@
-import { List, ListItem, ListItemText } from '@mui/material'
-import React from 'react'
-import './Card.css'
+import React, { useState } from 'react';
+import { ListItem, ListItemText, IconButton, Checkbox } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-function Card(props) {
+const Card = ({ text, onDelete }) => {
+  const [completed, setCompleted] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setCompleted(!completed);
+  };
+
   return (
-    <div>
-      <List>
-        <ListItem>
-            <ListItemText primary={props.text} secondary='Deadline⏰'></ListItemText>
-        </ListItem>
-      </List>
-    </div>
-  )
-}
+    <ListItem>
+      <Checkbox
+        color="primary"
+        checked={completed}
+        onChange={handleCheckboxChange}
+      />
+      <ListItemText
+        primary={text}
+        style={{ textDecoration: completed ? 'line-through' : 'none' }}
+      />
+      <IconButton color="secondary" onClick={onDelete}>
+        <DeleteForeverIcon />
+      </IconButton>
+    </ListItem>
+  );
+};
 
-export default Card
+export default Card;
