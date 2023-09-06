@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Button, FormControl, Input, InputLabel } from '@mui/material';
 import Card from './Card';
+import db from './firebase';
 
 
 function App() {
-  const [todos, setTodos] = useState(['Write Code','Buy a book','Play the guitar','Rent a house']);
+  const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
   console.log('🤩',input)
+
+  useEffect(() => {
+    db.collection('todos').onSnapshot(snapshot => {
+      console.log(snapshot.docs.map(doc => doc.data()))
+      setTodos(snapshot.docs.map(doc => doc.data().todo))
+    })
+  }, [])
+
   const addTodo = (event) => {
     event.preventDefault()
     console.log('😍')
